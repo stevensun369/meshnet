@@ -1,0 +1,110 @@
+:root {
+    --header-width: 93%;
+    --header-height: 7vh;
+    --header-space: 2.25vh;
+
+    --profile-img-height: 8vh;
+
+    --black-color: #080808;
+    --gray-color:rgb(59, 59, 59);
+    --main: #005CB8;
+    --white: #dedede;
+    --lightgray: #8c8c8c;
+
+    /* bootstrap colors */
+    --blue: #007bff;
+    --indigo: #6610f2;
+    --purple: #6f42c1;
+    --pink: #e83e8c;
+    --red: #dc3545;
+    --orange: #fd7e14;
+    --yellow: #ffc107;
+    --green: #28a745;
+    --teal: #20c997;
+    --cyan: #17a2b8;
+    --gray: #6c757d;
+    --gray-dark: #343a40;
+    --primary: #007bff;
+    --secondary: #6c757d;
+    --success: #28a745;
+    --info: #17a2b8;
+    --warning: #ffc107;
+    --danger: #dc3545;
+    --light: #f8f9fa;
+    --dark: #343a40;
+}
+
+
+
+header {
+    position: fixed;
+    top: 0;
+}
+
+.space {
+    height: calc(var(--header-height) * 1.1);
+}
+
+section {
+    width: 100vw;
+    margin: 0;
+    padding-bottom: 2vh;
+    display: inline-block;
+}
+
+.user {
+    box-sizing: border-box;
+    display: inline-block;
+    padding-bottom: 2vh;
+    color: var(--white);
+    width: 100%;
+    border-bottom: 1px solid var(--gray-color);
+}
+
+.user-profile-photo {
+    height: var(--header-height);
+    float: left;
+    margin-left: 2vh;
+    margin-top: 2vh;
+    border-radius: 300px;
+}
+
+.user-info {
+    height: var(--header-height);
+    float: left;
+    width: 60%;
+    margin-top: 2vh;
+    margin-left: 1vh;
+}
+
+.user-info-row {
+    height: calc(var(--header-height) / 2);
+    position: relative;
+}
+
+.user-info-row-text {
+    position: absolute;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    font-family: 'Roboto', sans-serif;
+}
+
+.user-handle {
+    color: var(--main);
+    font-family: 'Roboto', sans-serif;
+}
+
+.user-time {
+    color: var(--gray)
+}
+
+.user-bio {
+    float: left;
+    margin-top: 2vh;
+    margin-left: 2vh;
+    margin-right: 2vh;
+    text-align: left;
+    color: var(--white);
+    font-family: 'Roboto', sans-serif;
+}

@@ -1,0 +1,173 @@
+{% extends '../base.html' %} 
+
+{% load static %}
+{% load humanize %}
+
+
+{% block extrastyle %}
+    <!-- <link rel="stylesheet" href="{% static 'css/reset.css' %}"> -->
+
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <link rel="stylesheet" href="{% static 'css/post.css' %}">
+
+
+{% endblock extrastyle %}
+
+{% block content %}
+
+    <header>
+        <button onclick="goback()" class="header-back-button">
+            <img src="{% static 'img/back-blue.png' %}" alt="" class="header-back-button-img">
+        </button>
+
+        <div class="header-handle">
+            <p class="handle">@{{ target.username }}</p>
+        </div> 
+
+        {% if user.username == target.username %}
+            <a href="/profile/edit">
+                <div class="header-settings-button">
+                    <img src="{% static 'img/settings-outline-blue.png' %}" alt="" class="header-settings-button-img">
+                </div>
+            </a>
+        {% endif %}
+
+    </header>    
+
+    <div class="space"></div>
+
+    <section>
+        <div class="profile">
+            <img src="{{ target_profile.profile_photo.url }}" class="profile-img">
+
+            <div class="profile-info">
+                <div class="profile-info-row">
+                    <p class="profile-handle">@{{ target.username }}</p>
+                </div>
+                <div class="profile-info-row">
+                    <p class="unimportant">joined {{target.date_joined|date:"F o"}}</p>
+                </div>
+            </div>
+
+            <div class="profile-bio">
+                {{target_profile.bio}}
+            </div>
+
+            <div class="profile-stats">
+                <a href="/{{target.username}}/followers">
+                    <div class="profile-stats-column">
+                        <div class="profile-stats-column-text">
+                            <p class="accented-text">{{target_profile.followers_count}}</p>
+                            <p class="unaccented-text">followers</p>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="/{{target.username}}/following">
+                    <div class="profile-stats-column">
+                        <div class="profile-stats-column-text">
+                            <p class="accented-text">{{target_profile.following_count}}</p>
+                            <p class="unaccented-text">following</p>
+                        </div>
+                    </div>
+                </a>
+
+                <div class="profile-stats-column">
+                    <div class="profile-stats-column-text">
+                        <p class="accented-text">{{target_profile.posts_count}}</p>
+                        <p class="unaccented-text">posts</p>
+                    </div>
+                </div>
+            </div>
+
+            {% if user.username != target.username %}
+
+                {% if follow_condition %}
+
+                    <form action="" method="POST">
+                        {% csrf_token %}
+                        
+                        <input type="hidden" name="input" type="text" value="unfollow">
+                        
+                        <button class="profile-unfollow-button">
+                            unfollow
+                        </button>
+                        
+                    </form>
+                
+                {% else %}
+                    <form action="" method="POST">
+        
+                        {% csrf_token %}
+        
+                        <input type="hidden" name="input" type="text" value="follow">
+        
+                        <button type="submit" class="profile-follow-button">
+                            follow
+                        </button>
+        
+                    </form>
+                {% endif %}
+            {% endif %}
+
+
+
+
+        </div>
+
+        <div class="posts">
+
+            <div class="text"></div>
+
+
+            {% for post in posts %}
+
+                <div class="post">
+                    
+                    <img src="{{ target_profile.profile_photo.url }}" class="post-profile-img">
+    
+                    <div class="post-info">
+                        <div class="post-info-row user-handle">
+                            @{{target.username}}
+                        </div>
+        
+                        <div class="post-info-row post-date">
+                            {{post.date_posted|naturaltime}}
+                        </div>
+                    </div>
+
+        
+        
+                    <a href="/{{target.username}}/{{ post.pid }}/">
+                        <div class="post-content">
+                            {{ post.content }}
+                        </div>
+                    </a>
+        
+                    
+
+                    <div class="post-actions">
+                        <div class="post-actions-action">
+                            <div class="post-actions-action-container">
+                                <span class="post-actions-action-number">{{ post.likes_count }}</span>
+                                <img src="{% static 'img/heart-outline-blue.png' %}" alt="" class="post-actions-action-img">
+                            </div>
+                        </div>
+                        <div class="post-actions-action">
+                            <div class="post-actions-action-container">
+                                <span class="post-actions-action-number">{{post.comments_count}}</span>
+                                <img src="{% static 'img/comment.png' %}" alt="" style="margin-top: 0.35vh" class="post-actions-action-img actions-comment">
+                            </div>
+                        </div>
+                    </div>
+        
+                </div>
+
+            {% endfor %}
+    
+        </div>
+
+    </section>
+
+
+{% endblock content %}

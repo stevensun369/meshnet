@@ -1,0 +1,166 @@
+:root {
+    --header-height: 7vh;
+    --header-space: 2.25vh;
+
+    --black-color: #080808;
+    --gray-color:rgb(59, 59, 59);
+    --main: #005CB8;
+    --white: rgb(222, 222, 222);
+    --lightgray: #8c8c8c;
+
+    --border-weight: 1px;
+
+    --actions-height: calc(var(--header-height) / 1.75);
+
+    --font-size: 1em;
+    --profile-font-size: 1.25em;
+
+    --profile-image-height: 9vh;
+
+    --message-red: #9c0000;
+    --message-green: #008d00;
+    
+}
+
+* {
+    font-family: 'Roboto', sans-serif;
+}
+
+@media screen and (min-width: 700px) and (max-width: 1200px) {
+    :root {
+        --font-size: 1.5em;
+        --profile-font-size: 1.75em;
+
+        --actions-height: calc(var(--header-height) / 2.5);
+    }
+}
+
+.handle {
+    color: var(--main);
+}
+
+/* register */
+
+.logo {
+    height: auto;
+    margin: auto;
+    line-height: auto;
+    margin-top: 5vh;
+    text-align: center;
+}
+
+.logo-img {
+    height: calc(var(--header-height) * 1.5);
+    margin: auto;
+}
+
+.logo-text {
+    font-size: 1.5em;
+    color: var(--main);
+    font-family: 'Roboto', sans-serif;
+}
+
+.logo-description {
+    width: 20vh;
+    color: var(--gray-color);
+    font-family: 'Roboto', sans-serif;
+
+}
+
+.register-or-login-form {
+    text-align: center;
+    margin-top: calc(var(--header-height) / 1.5);
+    font-family: 'Roboto', sans-serif;
+
+    
+}
+
+input {
+    background: var(--gray-color);
+    outline: none;
+    border: 0;
+    height: var(--header-height);
+    width: 90%;
+    box-sizing: border-box;
+    padding-left: 3vh;
+    color: white;
+}
+
+.normal-input {
+    border: 0;
+    border-radius: 0;
+    margin-bottom: 0;
+    outline: none;
+
+}
+
+.first-input {
+    border-radius: 0;
+    border-top-left-radius: 26px;
+    border-top-right-radius: 26px;
+    outline: none;
+}
+
+.last-input {
+    border-radius: 0;
+    border-bottom-left-radius: 26px;
+    border-bottom-right-radius: 26px;
+    outline: none;
+}
+
+.register-or-login-button {
+    width: 20vh;
+    height: var(--header-height);
+    background: var(--black-color);
+    border: 2px solid var(--main);
+    color: var(--main);
+    font-size: 1.1em;
+    outline: none;
+    padding: 0;
+    border-radius: 300px;
+
+    margin-top: 6vh;
+}
+
+
+.register-or-login-button:active {
+    outline: none;    
+}
+
+.register-or-login-button:focus {
+    outline: none;    
+}
+
+.register-or-login-button:active {
+    background: var(--main);
+    color: var(--white);
+    border: 1.5px solid var(--main);
+}
+
+/* messages */
+.message-error {
+    border: 1.5px solid var(--message-red);
+    color: var(--message-red);
+    width: 90%;
+    margin: auto;
+    height: var(--header-height);
+    line-height: var(--header-height);
+    border-radius: 300px;
+    margin-bottom: 1vh;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.message-success {
+    border: 1.5px solid var(--message-green);
+    color: var(--message-green);
+    width: 90%;
+    margin: auto;
+    height: var(--header-height);
+    line-height: var(--header-height);
+    border-radius: 300px;
+    margin-bottom: 1vh;
+    box-sizing: border-box;
+    text-align: center;
+}
+

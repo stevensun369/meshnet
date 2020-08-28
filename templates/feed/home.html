@@ -1,0 +1,104 @@
+{% extends '../base.html' %}
+
+{% load static %}
+{% load humanize %}
+
+{% block extrastyle %}
+
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link rel="stylesheet" href="{% static 'css/post.css' %}">
+    <link rel="stylesheet" href="{% static 'css/alert.css' %}">
+
+
+
+{% endblock extrastyle %}
+
+{% block content %}
+
+
+    <header>
+        <div class="header-profile">
+            <a href="/me">
+                <img src="{{ user_profile.profile_photo.url }}" alt="" class="header-profile-img">
+            </a>
+        </div>
+        
+        <div class="header-home">
+            <a href="">
+                <img src="{% static 'img/logo-blue.png' %}" alt="" class="header-home-img">
+            </a>
+        </div>
+        
+        <div class="header-search">
+            <a href="/search">
+                <img src="{%static 'img/search-blue.png'%}" alt="" class="header-search-img">
+            </a>
+        </div>
+
+    </header>
+
+    <div class="space"></div>
+
+    {% include 'partials/_alert.html' %}
+
+    <section>
+        {% for post in posts %}
+
+            <div class="post">
+
+                <a href="{{ post.relation_user.username }}">
+                    <img src="{{ post.relation_user_profile.profile_photo.url }}" alt="" class="post-profile-img">
+                </a>
+
+                <a href="{{ post.relation_user.username }}">
+                    <div class="post-info">
+                        <div class="post-info-row user-handle">
+                            @{{post.relation_user.username}}
+                        </div>
+
+                        <div class="post-info-row post-date">
+                            <p class="post-date-p">{{ post.date_posted|naturaltime }}</p>
+                        </div>
+                    </div>
+                </a>
+
+                <a href="/{{post.relation_user.username}}/{{ post.pid }}/">
+                    <div class="post-content">
+                        {{ post.content }}
+                    </div>
+                </a>
+
+                
+                <div class="post-actions">
+                    <div class="post-actions-action">
+                        <div class="post-actions-action-container">
+                            <span class="post-actions-action-number">{{ post.likes_count }}</span>
+                            <img src="{% static 'img/heart-outline-blue.png' %}" alt="" class="post-actions-action-img">
+                        </div>
+                    </div>
+                    <div class="post-actions-action">
+                        <div class="post-actions-action-container">
+                            <span class="post-actions-action-number">{{post.comments_count}}</span>
+                            <img src="{% static 'img/comment.png' %}" alt="" style="margin-top: 0.35vh" class="post-actions-action-img actions-comment">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        {% endfor %}
+        <div class="space"></div>
+
+
+    </section>
+
+    <a href="/add">
+
+        <div class="add-post-page">
+            <img src="{% static 'img/plus-symbol-white.png' %}" alt="" class="add-post-page-icon">
+
+        </div>
+
+    </a>
+
+{% endblock content %}

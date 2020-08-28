@@ -1,0 +1,43 @@
+{% extends '../base.html' %}
+
+{% load static %}
+
+{% block extrastyle %}
+
+    <link rel="stylesheet" href="{% static 'css/welcome.css' %}">
+
+{% endblock extrastyle %}
+
+{% block content %}
+
+    <section>
+        <div class="top-space"></div>
+        <div class="logo">
+            <img src="{% static 'img/logo-blue.png' %}" alt="" class="logo-img"><br>
+            <span class="logo-text">meshnet.dev</span><br>
+    
+            <span class="logo-description">from developers, for developers</span>
+        </div>
+
+        <div class="welcome-text">
+            <p>Welcome to Meshnet, a simple tool for communicating your thoughts with a larger audience. We hope that our platform will help you build a community of like-minded individuals.</p>
+        </div>
+
+    </section>
+
+    
+
+    <footer>
+
+        <button onclick="goLogin()" class="login-button">
+            <p class="login-button-p">login</p>
+        </button>
+
+        <button onclick="goRegister()" class="register-button">
+            <p class="register-button-p">register</p>
+        </button>
+
+
+    </footer>
+
+{% endblock content %}

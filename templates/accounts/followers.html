@@ -1,0 +1,47 @@
+{% extends '../base.html' %}
+
+{% load static %}
+
+{% block extrastyle %}
+
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <link rel="stylesheet" href="{% static 'css/following_followers.css' %}">
+ 
+{% endblock extrastyle %}
+
+{% block content %}
+
+    <header>
+        <button onclick="goback()" class="header-back-button">
+            <img src="{% static 'img/back-blue.png' %}" alt="" class="header-back-button-img">
+        </button>
+
+        <div class="header-handle">
+            <p class="handle">followers</p>
+        </div> 
+    </header><div class="space"></div>
+
+    <section>
+        {% for follower,follower_profile in zipped_followers %}
+            <div class="user">
+                <a href="/{{ follower.username }}">
+                    <img src="{{ follower_profile.profile_photo.url }}" class="user-profile-photo">
+                </a>
+
+                <a href="/{{ follower.username }}">
+                    <div class="user-info">
+                        <div class="user-info-row"><p class="user-info-row-text user-handle">@{{ follower.username }}</p></div>
+                        <div class="user-info-row"><p class="user-info-row-text user-time">joined {{ follower.date_joined|date:"F o" }}</p></div>
+                    </div>
+                </a>
+                <a href="/{{ follower.username }}">
+                    <div class="user-bio">
+                        {{ follower_profile.bio }} 
+                    </div>
+                </a>
+            
+            </div>
+        {% endfor %}
+    </section>
+
+{% endblock content %}

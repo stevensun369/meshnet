@@ -1,0 +1,45 @@
+{% extends '../base.html' %}
+
+{% load static %}
+
+{% block extrastyle %}
+
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+    <link rel="stylesheet" href="{% static 'css/add.css' %}">
+
+
+
+{% endblock extrastyle %}
+
+{% block content %}
+
+    <header>
+        <button onclick="goback()" class="header-back-button">
+            <img src="{% static 'img/back-blue.png' %}" alt="" class="header-back-button-img">
+        </button>
+
+        <div class="header-title">
+            <p class="title">new post</p>
+        </div> 
+    </header>
+
+    <section>
+
+        <div class="profile-photo-container">
+            <img src="{{ user_profile.profile_photo.url }}" alt="" class="profile-photo">
+        </div>
+
+
+        <form action="" method="POST" class="add-post">
+            {% csrf_token %}
+
+            <textarea name="add-post-input" class="add-post-input" placeholder="share an idea to the world"></textarea>
+
+            <button class="add-post-submit" type="submit">
+                post
+            </button>
+        </form>
+
+    </section>
+    
+{% endblock content %}

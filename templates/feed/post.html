@@ -1,0 +1,131 @@
+{% extends '../base.html' %}
+
+{% load static %}
+{% load humanize %}
+
+
+{% block extrastyle %}
+
+    <link rel="stylesheet" href="{% static 'css/post.css' %}">
+    <link rel="stylesheet" href="{% static 'css/post-page.css' %}">
+    <link rel="stylesheet" href="{% static 'css/comment.css' %}">
+
+{% endblock extrastyle %}
+
+
+{% block content %}
+
+    <header>
+        <button onclick="goback()" class="header-back-button">
+            <img src="{% static 'img/back-blue.png' %}" alt="" class="header-back-button-img">
+        </button>
+
+        <div class="header-handle">
+            <p class="handle">post by {{ post.relation_user.username }}</p>
+        </div> 
+    </header>
+
+    <div class="space"></div>
+
+    <section>
+        <div class="post">
+
+            <a href="/{{ target.username }}">
+                <img src="{{ target_profile.profile_photo.url }}" alt="" class="post-profile-img">
+            </a>
+
+            <a href="/{{ target.username }}">
+                <div class="post-info">
+                    <div class="post-info-row user-handle">
+                        @{{target.username}}
+                    </div>
+    
+                    <div class="post-info-row post-date">
+                        {{post.date_posted|naturaltime}}
+                    </div>
+                </div>
+            </a>
+
+            <div class="post-content">
+                {{ post.content }}
+            </div>
+
+            <div class="post-actions">
+                <div class="post-actions-action">
+                    <div class="post-actions-action-container">
+                        <span class="post-actions-action-number">{{ post.likes_count }}</span>
+                        <img src="{% static 'img/heart-outline-blue.png' %}" alt="" class="post-actions-action-img">
+                    </div>
+                </div>
+                <div class="post-actions-action">
+                    <div class="post-actions-action-container">
+                        <span class="post-actions-action-number">{{post.comments_count}}</span>
+                        <img src="{% static 'img/comment.png' %}" alt="" style="margin-top: 0.35vh" class="post-actions-action-img actions-comment">
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="text">comments:</div>
+
+        {% for comment in comments %}
+
+            <div class="comment">
+                <a href="/{{ comment.relation_user.username }}">
+                    <img src="{{ comment.relation_user_profile.profile_photo.url }}" alt="" class="comment-profile-img">
+                </a>
+
+                <a href="/{{ comment.relation_user.username }}">
+                    <div class="comment-info">
+                        <div class="comment-info-row user-handle">
+                            @{{comment.relation_user.username}}
+                        </div>
+
+                        <div class="comment-info-row comment-date">
+                            {{comment.date_commented|naturaltime}}
+                        </div>
+                    </div>
+                </a>
+
+
+                <div class="comment-content">
+                    {{ comment.content }}
+                </div>
+
+                <div class="comment-actions">
+                    
+
+                   
+
+                    <div class="comment-actions-action">
+                        <div class="comment-actions-action-container">
+                            <span class="comment-actions-action-number">{{comment.likes_count}}</span>
+                            <img src="{% static 'img/heart-outline-blue.png' %}" alt="" class="comment-actions-action-img">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        {% endfor %}
+        <div class="space"></div>
+    </section>
+
+    <footer>
+        <form action="" method="POST" class="add-comment">
+            {% csrf_token %}
+
+            <div class="add-comment-input-container">
+                <input type="text" name="add-comment-input" class="add-comment-input" placeholder="write your comment">
+            </div>
+
+            <div class="add-comment-submit-container">
+                <button type="submit" class="add-comment-submit">
+                    <img src="{% static 'img/send-white.png' %}" alt="" class="add-comment-submit-img">
+                </button>
+            </div>
+
+        </form>
+    </footer>
+
+{% endblock content %}

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+{% load static %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{% static 'css/reset.css' %}">
+
+
+
+    {% if title %}
+
+        <title>meshnet - {{ title }}</title>
+
+    {% else %}
+
+        <title>meshnet</title>
+
+    {% endif %}
+
+    
+    <meta name="theme-color" content="#080808">
+
+
+    {% block extrastyle %} {% endblock extrastyle %}
+
+
+
+    <script>
+        var viewport = document.querySelector("meta[name=viewport]");
+        viewport.setAttribute("content", viewport.content + ", height=" + innerHeight);
+    </script>
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
+
+</head>
+
+<body style="background: #080808;">
+
+
+
+    {% block content %} {% endblock content %}
+
+    <script src="{% static 'js/master.js' %}"></script>
+        
+</body>
+
+</html>

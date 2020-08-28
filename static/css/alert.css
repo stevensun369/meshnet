@@ -1,0 +1,33 @@
+:root {
+    --message-red: #9c0000;
+    --message-green: #008d00;
+}
+
+/* messages */
+.message-error {
+    border: 1.5px solid var(--message-red);
+    color: var(--message-red);
+    width: 90%;
+    margin: auto;
+    height: var(--header-height);
+    line-height: var(--header-height);
+    border-radius: 300px;
+    margin-bottom: 1vh;
+    box-sizing: border-box;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+}
+
+.message-success {
+    border: 1.5px solid var(--message-green);
+    color: var(--message-green);
+    width: 90%;
+    margin: auto;
+    height: var(--header-height);
+    line-height: var(--header-height);
+    border-radius: 300px;
+    margin-bottom: 1vh;
+    box-sizing: border-box;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+}

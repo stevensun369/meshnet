@@ -1,0 +1,75 @@
+{% extends '../base.html' %}
+
+{% load static %}
+
+{% block extrastyle %}
+
+    <link rel="stylesheet" href="{% static 'css/search.css' %}">
+
+{% endblock extrastyle %}
+
+{% block content %}
+
+    <header>
+
+        <button class="header-back-button" onclick="goToHome()">
+            <img src="{% static 'img/back-blue.png' %}" alt="" class="header-back-button-img">
+        </button>
+
+        <form action="" method="get" class="header-form">
+            <input type="text" value="{{ get_values.q }}" class="header-form-input" name="q" placeholder="search for someone...">
+
+            <button type="submit" class="header-form-submit-button">
+                <img src="{% static 'img/search-submit-blue.png' %}" class="header-form-submit-button-img">
+            </button>
+        </form>
+    </header>
+
+    <div class="space"></div>
+
+    <section>
+        {% if users %}        
+            {% for user,user_profile in zipped_users %}
+                <div class="user">
+
+
+                    <a href="/{{ user.username }}">
+                        <img src="{{ user_profile.profile_photo.url }}" class="user-profile-photo">
+                    </a>
+
+                    <a href="/{{ user.username }}">
+                        <div class="user-info">
+                            <div class="user-info-row"><p class="user-info-row-text user-handle">@{{ user.username }}</p></div>
+                            <div class="user-info-row"><p class="user-info-row-text user-time">joined {{ user.date_joined|date:"F o" }}</p></div>
+                        </div>
+                    </a>
+                    <a href="/{{ user.username }}"> 
+                        <div class="user-bio">
+                            {{ user_profile.bio }}
+                        </div>
+                    </a>
+                
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="non-existant">
+                <p class="non-existant-p">
+                    we have not found a match for your query.
+                </p>
+            </div>
+        {% endif %}
+
+        {% if not get_values.q %}
+
+            <div class="non-existant">
+                <p class="non-existant-p">
+                    search for someone.
+                </p>
+            </div>
+
+        {% endif %}
+
+        
+    </section>
+
+{% endblock content %}

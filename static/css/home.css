@@ -1,0 +1,141 @@
+:root {
+    --header-width: 95%;
+    --header-height: 7vh;
+    --header-space: 2.25vh;
+
+    --black-color: #080808;
+    --gray-color:rgb(59, 59, 59);
+    --main: #005CB8;
+    --white: #dedede;
+    --lightgray: #8c8c8c;
+
+    /* bootstrap colors */
+    --blue: #007bff;
+    --indigo: #6610f2;
+    --purple: #6f42c1;
+    --pink: #e83e8c;
+    --red: #dc3545;
+    --orange: #fd7e14;
+    --yellow: #ffc107;
+    --green: #28a745;
+    --teal: #20c997;
+    --cyan: #17a2b8;
+    --gray: #6c757d;
+    --gray-dark: #343a40;
+    --primary: #007bff;
+    --secondary: #6c757d;
+    --success: #28a745;
+    --info: #17a2b8;
+    --warning: #ffc107;
+    --danger: #dc3545;
+    --light: #f8f9fa;
+    --dark: #343a40;
+}
+
+body {
+    text-align: center;
+
+}
+
+* {
+    font-family: 'Roboto', sans-serif;
+}
+
+/* header  */
+
+header {
+    width: 100%;
+    height: var(--header-height);
+    margin:auto;
+    background: var(--gray-color);
+
+
+    box-sizing: border-box;
+
+    position: fixed;
+
+    z-index: 1;
+
+}
+
+.header-profile {
+    height: var(--header-height);
+    width: 15%;
+    margin: 0;
+    text-align: center;
+    float: left;
+}
+
+.header-profile-img {
+    height: calc(var(--header-height) - var(--header-space));
+    margin: auto;
+    margin-top: calc(var(--header-space) / 2);
+    border-radius: 300px;
+}
+
+.header-home {
+    height: var(--header-height);
+    width: 70%;
+    float: left;
+    text-align: center;
+}
+
+.header-home-img {
+    height: var(--header-height);
+
+}
+
+.header-search {
+    height: var(--header-height);
+    width: 15%;
+    margin: 0;
+    text-align: center;
+    float: left;
+}
+
+.header-search-img {
+    height: calc(var(--header-height) - var(--header-space));
+    margin: auto;
+    margin-top: calc(var(--header-space) / 2);
+    border-radius: 300px;
+}
+
+.space {
+    width: 100%;
+    height: calc(var(--header-height) * 1.1);
+}
+
+/* section  */
+section {
+    width: 100%;
+    text-align: center;
+    padding-bottom: 2vh;
+    display: inline-block;
+}
+
+.add-post-page {
+    height: var(--header-height);
+    width: var(--header-height);
+    background: var(--main);
+    border-radius: 300px;
+    position: fixed;
+    bottom: var(--header-space);
+    right: var(--header-space);
+}
+
+.add-post-page-icon {
+    height: calc(var(--header-height) / 1.6);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+
+}
+
+
+
+
+
+
+

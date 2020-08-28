@@ -1,0 +1,47 @@
+{% extends '../base.html' %}
+
+{% load static %}  
+
+{% block extrastyle %}
+
+    <link rel="stylesheet" href="{% static 'css/profile_edit.css' %}">
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+
+
+{% endblock extrastyle %}
+
+
+{% block content %}
+
+    <header>
+        <button onclick="goback()" class="header-back-button">
+            <img src="{% static 'img/back-blue.png' %}" alt="" class="header-back-button-img">
+        </button>
+
+        <div class="header-title">
+            <span class="handle">edit bio</span>
+        </div>
+    </header>
+
+    <div class="space" style="height: 10vh;"></div>
+
+
+    <section>
+        
+        {% include '../partials/_alert.html' %}
+
+        <form method="POST" action="" class="edit-username">
+
+            {% csrf_token %}
+
+            <textarea name="edit-bio-input" class="edit-bio-input" value="{{ user_profile.bio }}">{{ user_profile.bio }}</textarea>
+
+            <button type="submit" onclick="goback()" class="edit-submit-button">
+                save
+            </button>
+
+        </form>
+
+    </section>
+
+{% endblock content %}

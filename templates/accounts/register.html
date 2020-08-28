@@ -1,0 +1,42 @@
+{% extends '../base.html' %}
+<!-- {% load static %} -->
+
+{% block extrastyle %}
+
+    <link rel="stylesheet" href="{% static 'css/registerorlogin.css' %}">
+
+{% endblock extrastyle %}
+
+
+{% block content %}
+
+    <div class="logo">
+        <img src="{% static 'img/logo-blue.png' %}" alt="" class="logo-img"><br>
+        <span class="logo-text">meshnet.dev</span><br>
+
+        <span class="logo-description">from developers, for developers</span>
+    </div>
+    
+
+    
+    <form action="" method="post" class="register-or-login-form">
+
+   
+
+        {% csrf_token %}
+        <span class="handle">register here:</span>
+        <br><br>
+        {% include 'partials/_alert.html' %}
+
+        <br>
+
+        <input type="text" name="username" placeholder="username" class="first-input"><br>
+        <input type="email" name="email" placeholder="email" class="normal-input"><br>
+        <input type="password" name="password" placeholder="password" class="normal-input"><br>
+        <input type="password" name="password_confirm" placeholder="password confirmation" class="last-input"><br>
+        <a href="{% url 'login' %}" class="handle" style="font-size: 0.85em;">already have an account? login here</a><br>
+
+        <input type="submit" value="register" class="register-or-login-button">
+    </form>
+
+{% endblock content %}

@@ -1,0 +1,56 @@
+{% extends '../base.html' %} 
+
+{% load static %}
+
+{% block extrastyle %}
+
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+<link rel="stylesheet" href="{% static 'css/profile_edit.css' %}">
+
+
+{% endblock extrastyle %}
+
+
+
+{%  block content %}
+
+    <header>
+        <a href="{% url 'profile_me' %}">
+            <button onclick="goToMe()" class="header-back-button">
+                <img src="{% static 'img/back-blue.png' %}" alt="" class="header-back-button-img">
+            </button>
+        </a>
+
+        <div class="header-title">
+            <span class="handle">edit profile</span>
+        </div>
+    </header>
+
+    <div class="space"></div>
+
+    <section>
+
+        {% include '../partials/_alert.html' %}
+
+        <a href="username">
+            <div class="option top-item">
+    
+                <div class="option-info">
+                    <span class="option-info-text">edit your username</span>
+                </div>
+    
+            </div>
+        </a>
+
+        <a href="bio">
+            <div class="option bottom-item"> 
+    
+                <div class="option-info">
+                    <span class="option-info-text">change your bio</span>
+                </div>
+    
+            </div>
+        </a>
+    </section>
+
+{% endblock content %}
