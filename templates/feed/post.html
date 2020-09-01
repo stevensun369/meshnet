@@ -72,6 +72,7 @@
         {% for comment in comments %}
 
             <div class="comment">
+
                 <a href="/{{ comment.relation_user.username }}">
                     <img src="{{ comment.relation_user_profile.profile_photo_url }}" alt="" class="comment-profile-img">
                 </a>
@@ -79,7 +80,7 @@
                 <a href="/{{ comment.relation_user.username }}">
                     <div class="comment-info">
                         <div class="comment-info-row user-handle">
-                            @{{comment.relation_user.username}}
+                            @{{ comment.relation_user.username }}
                         </div>
 
                         <div class="comment-info-row comment-date">
@@ -94,25 +95,23 @@
                 </div>
 
                 <div class="comment-actions">
-                    
-
-                   
-
                     <div class="comment-actions-action">
                         <div class="comment-actions-action-container">
-                            <span class="comment-actions-action-number">{{comment.likes_count}}</span>
+                            <span class="comment-actions-action-number">{{ comment.likes_count }}</span>
                             <img src="{% static 'img/heart-outline-blue.png' %}" alt="" class="comment-actions-action-img">
                         </div>
                     </div>
                 </div>
 
             </div>
+
         {% endfor %}
         <div class="space"></div>
     </section>
 
     <footer>
         <form action="" method="POST" class="add-comment">
+
             {% csrf_token %}
 
             <div class="add-comment-input-container">

@@ -31,7 +31,7 @@
         
         <div class="header-search">
             <a href="/search">
-                <img src="{%static 'img/search-blue.png'%}" alt="" class="header-search-img">
+                <img src="{% static 'img/search-blue.png' %}" alt="" class="header-search-img">
             </a>
         </div>
 
@@ -62,7 +62,7 @@
                     </div>
                 </a>
 
-                <a href="/{{post.relation_user.username}}/{{ post.pid }}/">
+                <a href="/{{ post.relation_user.username }}/{{ post.pid }}/">
                     <div class="post-content">
                         {{ post.content }}
                     </div>

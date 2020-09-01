@@ -28,10 +28,11 @@
     <div class="space"></div>
 
     <section>
-        {% if users %}        
-            {% for user,user_profile in zipped_users %}
-                <div class="user">
+        {% if users %}  
 
+            {% for user, user_profile in zipped_users %}
+
+                <div class="user">
 
                     <a href="/{{ user.username }}">
                         <img src="{{ user_profile.profile_photo_url }}" class="user-profile-photo">
@@ -43,6 +44,7 @@
                             <div class="user-info-row"><p class="user-info-row-text user-time">joined {{ user.date_joined|date:"F o" }}</p></div>
                         </div>
                     </a>
+
                     <a href="/{{ user.username }}"> 
                         <div class="user-bio">
                             {{ user_profile.bio }}
@@ -50,13 +52,17 @@
                     </a>
                 
                 </div>
+
             {% endfor %}
+
         {% else %}
+
             <div class="non-existant">
                 <p class="non-existant-p">
                     we have not found a match for your query.
                 </p>
             </div>
+            
         {% endif %}
 
         {% if not get_values.q %}

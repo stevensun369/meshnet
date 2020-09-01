@@ -1,5 +1,6 @@
 {% extends '../base.html' %}
-<!-- {% load static %} -->
+
+{% load static %}
 
 {% block extrastyle %}
 
@@ -17,15 +18,14 @@
         <span class="logo-description">from developers, for developers</span>
     </div>
     
-
     
     <form action="" method="post" class="register-or-login-form">
 
-   
-
         {% csrf_token %}
         <span class="handle">register here:</span>
+
         <br><br>
+
         {% include 'partials/_alert.html' %}
 
         <br>
@@ -34,9 +34,11 @@
         <input type="email" name="email" placeholder="email" class="normal-input"><br>
         <input type="password" name="password" placeholder="password" class="normal-input"><br>
         <input type="password" name="password_confirm" placeholder="password confirmation" class="last-input"><br>
+
         <a href="{% url 'login' %}" class="handle" style="font-size: 0.85em;">already have an account? login here</a><br>
 
         <input type="submit" value="register" class="register-or-login-button">
+
     </form>
 
 {% endblock content %}
