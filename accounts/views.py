@@ -137,7 +137,7 @@ def profile(request, username):
 
         return render(request, 'accounts/profile.html', context)
 
-def profile(request):
+def profile_me(request):
     user = User.objects.get(username=request.user)
     user_profile = UserProfile.objects.get(relation_email=user.email)
 
