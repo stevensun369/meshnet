@@ -201,3 +201,44 @@ section {
     font-family: 'Roboto', sans-serif;
 }
 
+.small-space {
+    height: calc(var(--header-height) / 1.5);
+    width: 100%;
+}
+
+.form-input-file-label {
+    color: var(--white);
+    font-family: 'Roboto', sans-serif;
+    cursor: pointer;
+    margin-top: 5vh;
+    background: var(--gray-color);
+    padding: 2vh;
+    padding-left: 30vw;
+    padding-right: 30vw;
+    text-align: center;
+    border-radius: 300px;
+}
+
+.form-input-file-label:focus, .form-input-file-label:active {
+    background: var(--gray-dark);
+}
+
+.form-input-file {
+    width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+
+.form-button-submit {
+    background: var(--black-color);
+    color: var(--main);
+    outline: none;
+    border: 1px solid var(--main);
+    border-radius: 300px;
+    padding: 1vh;
+    width: 20vw;
+    font-size: 1.05em;
+}

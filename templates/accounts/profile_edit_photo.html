@@ -1,0 +1,46 @@
+{% extends '../base.html' %}
+
+{% load static %}
+
+{% block extrastyle %}
+
+    <link rel="stylesheet" href="{% static 'css/profile_edit.css' %}">
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+
+
+{% endblock extrastyle %}
+
+{% block content %}
+
+    <header>
+        <button onclick="goback()" class="header-back-button">
+            <img src="{% static 'img/back-blue.png' %}" alt="" class="header-back-button-img">
+        </button>
+
+        <div class="header-title">
+            <span class="handle">edit profile photo</span>
+        </div>
+    </header>
+
+    <div class="space"></div>
+
+    <form class="form" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <div class="small-space"></div>
+
+        <input type="file" id="profile_photo" name="profile_photo" class="form-input-file">
+
+        <label for="profile_photo" class="form-input-file-label">choose a file</label><br><br><br>
+
+        <button class="form-button-submit" type="submit">
+            ok
+        </button>
+    </form>
+
+    {% if uploaded_file_url %}
+        <p>file uploaded at: <a href="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
+    {% endif %}
+    
+
+{% endblock content %}

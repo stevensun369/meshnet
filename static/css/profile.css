@@ -162,6 +162,7 @@ section {
 
 .profile-img {
     height: var(--profile-img-height);
+    width: var(--profile-img-height);
     border-radius: 300px;
     float: left;
     margin-left: 1vh;

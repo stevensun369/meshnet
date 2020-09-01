@@ -68,6 +68,7 @@ header {
 
 .header-profile-img {
     height: calc(var(--header-height) - var(--header-space));
+    width: calc(var(--header-height) - var(--header-space));
     margin: auto;
     margin-top: calc(var(--header-space) / 2);
     border-radius: 300px;

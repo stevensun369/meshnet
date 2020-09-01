@@ -19,7 +19,7 @@
     <header>
         <div class="header-profile">
             <a href="/me">
-                <img src="{{ user_profile.profile_photo.url }}" alt="" class="header-profile-img">
+                <img src="{{ user_profile.profile_photo_url }}" alt="" class="header-profile-img">
             </a>
         </div>
         
@@ -47,7 +47,7 @@
             <div class="post">
 
                 <a href="{{ post.relation_user.username }}">
-                    <img src="{{ post.relation_user_profile.profile_photo.url }}" alt="" class="post-profile-img">
+                    <img src="{{ post.relation_user_profile.profile_photo_url }}" alt="" class="post-profile-img">
                 </a>
 
                 <a href="{{ post.relation_user.username }}">

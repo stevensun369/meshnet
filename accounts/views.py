@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib import auth
+from django.core.files.storage import FileSystemStorage
 
 from models_core.models import UserProfile, Post
 
@@ -217,12 +218,37 @@ def profile_edit_bio(request):
         }
         return render(request, 'accounts/profile_edit_bio.html', context)
 
+def profile_edit_photo(request):
+    user = User.objects.get(username=request.user)
+    user_profile = UserProfile.objects.get(relation_email=user.email)
+
+    if request.method == "POST" and request.FILES['profile_photo']:
+        profile_photo = request.FILES['profile_photo']
+
+        fs = FileSystemStorage()
+
+        filename = fs.save(user.email + '/' + profile_photo.name, profile_photo)
+
+        uploaded_file_url = fs.url(filename)
+
+        user_profile.profile_photo_url = uploaded_file_url
+        user_profile.save()
+
+        return redirect('/profile/edit')
+
+    context = {
+        'user': user,
+        'user_profile': user_profile,
+    }
+
+    return render(request, 'accounts/profile_edit_photo.html', context)
+
 def welcome(request):
     return render(request, 'accounts/welcome.html')
 
 
 def followers(request, username):
-    # getting the target user
+    # getting the target user 
     target = User.objects.get(username=username)
     target_profile = UserProfile.objects.get(relation_email=target.email)
 

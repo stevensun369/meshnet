@@ -47,6 +47,7 @@
 }
 
 .post-profile-img {
+    width: var(--header-height);
     height: var(--header-height);
     float: left;
     margin-left: 2vh;

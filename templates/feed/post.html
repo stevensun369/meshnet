@@ -31,7 +31,7 @@
         <div class="post">
 
             <a href="/{{ target.username }}">
-                <img src="{{ target_profile.profile_photo.url }}" alt="" class="post-profile-img">
+                <img src="{{ target_profile.profile_photo_url }}" alt="" class="post-profile-img">
             </a>
 
             <a href="/{{ target.username }}">
@@ -73,7 +73,7 @@
 
             <div class="comment">
                 <a href="/{{ comment.relation_user.username }}">
-                    <img src="{{ comment.relation_user_profile.profile_photo.url }}" alt="" class="comment-profile-img">
+                    <img src="{{ comment.relation_user_profile.profile_photo_url }}" alt="" class="comment-profile-img">
                 </a>
 
                 <a href="/{{ comment.relation_user.username }}">
