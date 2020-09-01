@@ -139,6 +139,7 @@ section {
 
 .user-profile-photo {
     height: var(--header-height);
+    width: var(--header-height);
     float: left;
     margin-left: 2vh;
     margin-top: 2vh;

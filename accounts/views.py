@@ -234,6 +234,8 @@ def profile_edit_photo(request):
         user_profile.profile_photo_url = uploaded_file_url
         user_profile.save()
 
+        messages.success(request, 'you have successfuly changed your profile photo')
+
         return redirect('/profile/edit')
 
     context = {
