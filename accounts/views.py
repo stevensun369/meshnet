@@ -227,7 +227,7 @@ def profile_edit_photo(request):
 
         fs = FileSystemStorage()
 
-        filename = fs.save(user.email + '/' + profile_photo.name, profile_photo)
+        filename = fs.save(profile_photo.name, profile_photo)
 
         uploaded_file_url = fs.url(filename)
 

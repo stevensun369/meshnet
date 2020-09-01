@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 class UserProfile(models.Model):
     relation_email = models.TextField()
 
-    profile_photo_url = models.TextField(default='media/profile/profile.png')
+    profile_photo_url = models.TextField(default='/media/profile/profile.png')
 
     bio = models.TextField(blank=True)
 
