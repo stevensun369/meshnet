@@ -22,26 +22,34 @@
     </header><div class="space"></div>
 
     <section>
-        {% for follower,follower_profile in zipped_followers %}
-            <div class="user">
-                <a href="/{{ follower.username }}">
-                    <img src="{{ follower_profile.profile_photo.url }}" class="user-profile-photo">
-                </a>
+        {% if target_followers %}
+            {% for follower,follower_profile in zipped_followers %}
+                <div class="user">
+                    <a href="/{{ follower.username }}">
+                        <img src="{{ follower_profile.profile_photo.url }}" class="user-profile-photo">
+                    </a>
 
-                <a href="/{{ follower.username }}">
-                    <div class="user-info">
-                        <div class="user-info-row"><p class="user-info-row-text user-handle">@{{ follower.username }}</p></div>
-                        <div class="user-info-row"><p class="user-info-row-text user-time">joined {{ follower.date_joined|date:"F o" }}</p></div>
-                    </div>
-                </a>
-                <a href="/{{ follower.username }}">
-                    <div class="user-bio">
-                        {{ follower_profile.bio }} 
-                    </div>
-                </a>
-            
+                    <a href="/{{ follower.username }}">
+                        <div class="user-info">
+                            <div class="user-info-row"><p class="user-info-row-text user-handle">@{{ follower.username }}</p></div>
+                            <div class="user-info-row"><p class="user-info-row-text user-time">joined {{ follower.date_joined|date:"F o" }}</p></div>
+                        </div>
+                    </a>
+                    <a href="/{{ follower.username }}">
+                        <div class="user-bio">
+                            {{ follower_profile.bio }} 
+                        </div>
+                    </a>
+                
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="non-existant">
+                <p class="non-existant-p">
+                    <span class="user-handle">@{{target.username}}</span> has no followers
+                </p>
             </div>
-        {% endfor %}
+        {% endif %}
     </section>
 
 {% endblock content %}

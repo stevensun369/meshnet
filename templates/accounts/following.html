@@ -22,28 +22,36 @@
     </header><div class="space"></div>
 
     <section>
-        {% for following,following_profile in zipped_following %}
-            <div class="user">
+        {% if target_following %}
+            {% for following,following_profile in zipped_following %}
+                <div class="user">
 
 
-                <a href="/{{ following.username }}">
-                    <img src="{{ following_profile.profile_photo.url }}" class="user-profile-photo">
-                </a>
+                    <a href="/{{ following.username }}">
+                        <img src="{{ following_profile.profile_photo.url }}" class="user-profile-photo">
+                    </a>
 
-                <a href="/{{ following.username }}">
-                    <div class="user-info">
-                        <div class="user-info-row"><p class="user-info-row-text user-handle">@{{ following.username }}</p></div>
-                        <div class="user-info-row"><p class="user-info-row-text user-time">joined {{ following.date_joined|date:"F o" }}</p></div>
-                    </div>
-                </a>
-                <a href="/{{ following.username }}"> 
-                    <div class="user-bio">
-                        {{ following_profile.bio }}
-                    </div>
-                </a>
-            
+                    <a href="/{{ following.username }}">
+                        <div class="user-info">
+                            <div class="user-info-row"><p class="user-info-row-text user-handle">@{{ following.username }}</p></div>
+                            <div class="user-info-row"><p class="user-info-row-text user-time">joined {{ following.date_joined|date:"F o" }}</p></div>
+                        </div>
+                    </a>
+                    <a href="/{{ following.username }}"> 
+                        <div class="user-bio">
+                            {{ following_profile.bio }}
+                        </div>
+                    </a>
+                
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="non-existant">
+                <p class="non-existant-p">
+                    <span class="user-handle">@{{target.username}}</span> doesn't follow anybody
+                </p>
             </div>
-        {% endfor %}
+        {% endif %}
     </section>
 
 {% endblock content %}

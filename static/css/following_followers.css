@@ -28,7 +28,7 @@
     --secondary: #6c757d;
     --success: #28a745;
     --info: #17a2b8;
-    --warning: #ffc107;
+    --warning: #ffc107; 
     --danger: #dc3545;
     --light: #f8f9fa;
     --dark: #343a40;
@@ -107,4 +107,19 @@ section {
     text-align: left;
     color: var(--white);
     font-family: 'Roboto', sans-serif;
+}
+
+.non-existant {
+    width: 100%;
+    box-sizing: border-box;
+    padding-bottom: 2vh;
+    color: var(--white);
+    font-family: 'Roboto', sans-serif;
+    margin-top: 40vh;
+    text-align: center;
+}
+
+.non-existant-p {
+    max-width: 50%;
+    margin-left: 25%;
 }

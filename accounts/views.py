@@ -235,6 +235,7 @@ def followers(request, username):
   
 
     context  = {
+        'target': target,
         'target_followers':target_followers,
         'followers': followers,
         'followers_profile': followers_profile,
@@ -257,6 +258,7 @@ def following(request, username):
   
 
     context  = {
+        'target': target,
         'target_following':target_following,
         'following': following,
         'following_profile': following_profile,
