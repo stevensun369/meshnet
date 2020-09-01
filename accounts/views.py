@@ -135,14 +135,13 @@ def profile(request, username):
             'posts': posts
         }
 
-    return render(request, 'accounts/profile.html', context)
+        return render(request, 'accounts/profile.html', context)
 
-def profile_me(request, username):
+def profile(request):
     user = User.objects.get(username=request.user)
     user_profile = UserProfile.objects.get(relation_email=user.email)
 
     posts = Post.objects.filter(relation_email=user.email).order_by('-date_posted')
-
 
     context = {
         'user': user,
@@ -151,6 +150,7 @@ def profile_me(request, username):
     }
 
     return render(request, 'accounts/me.html', context)
+
 def profile_edit(request):
 
     if request.user.is_authenticated:
