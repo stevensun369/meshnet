@@ -74,7 +74,7 @@ def add_post(request):
         
         return render(request, 'feed/add.html', context)
 
-def post(request,username, pid):
+def post(request, username, pid):
     user = User.objects.get(username=request.user)
     user_profile = UserProfile.objects.get(relation_email=user.email)
 

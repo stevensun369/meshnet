@@ -47,7 +47,8 @@
 }
 
 .comment-profile-img {
-    height: 5.6vh ;
+    height: 5.6vh;
+    width: 5.6vh;
     float: left;
     margin-left: 2vh;
     border-radius: 300px;

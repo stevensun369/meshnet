@@ -15,7 +15,7 @@
 {%  block content %}
 
     <header>
-        <a href="{% url 'profile' %}">
+        <a href="/profile">
             <button onclick="goToMe()" class="header-back-button">
                 <img src="{% static 'img/back-blue.png' %}" alt="" class="header-back-button-img">
             </button>
@@ -32,7 +32,7 @@
 
         {% include '../partials/_alert.html' %}
 
-        <a href="photo">
+        <a href="/profile/edit/photo">
             <div class="option top-item">
     
                 <div class="option-info">
@@ -42,7 +42,7 @@
             </div>
         </a>
 
-        <a href="username">
+        <a href="/profile/edit/username">
             <div class="option">
     
                 <div class="option-info">
@@ -52,7 +52,7 @@
             </div>
         </a>
 
-        <a href="bio">
+        <a href="/profile/edit/bio">
             <div class="option bottom-item"> 
     
                 <div class="option-info">

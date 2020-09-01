@@ -132,7 +132,7 @@ def profile(request, username):
             'target_followers_list' : target_followers_list,
             'user_following_list': user_following_list,
             'follow_condition': follow_condition,
-            'posts': posts
+            'posts': posts,
         }
 
         return render(request, 'accounts/profile.html', context)
@@ -154,12 +154,13 @@ def profile_me(request):
 def profile_edit(request):
 
     if request.user.is_authenticated:
+
         user = User.objects.get(username=request.user)
         user_profile = UserProfile.objects.get(relation_email=user.email)
 
         context = {
             'user': user,
-            'user_profile': user_profile 
+            'user_profile': user_profile,
         }
 
         return render(request, 'accounts/profile_edit.html', context)
