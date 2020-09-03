@@ -6,6 +6,7 @@
 
     <link rel="stylesheet" href="{% static 'css/reset.css' %}">
     <link rel="stylesheet" href="{% static 'css/add.css' %}">
+    <link rel="stylesheet" href="{% static 'css/alert.css' %}">
 
 
 
@@ -23,7 +24,15 @@
         </div> 
     </header>
 
+    <style>
+        .messages-error, .messages-success {
+            width: 95%;
+        }
+    </style>
+
     <section>
+
+        {% include 'partials/_alert.html' %}
 
         <div class="profile-photo-container">
             <img src="{{ user_profile.profile_photo_url }}" alt="" class="profile-photo">

@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{% static 'css/post.css' %}">
     <link rel="stylesheet" href="{% static 'css/post-page.css' %}">
     <link rel="stylesheet" href="{% static 'css/comment.css' %}">
+    <link rel="stylesheet" href="{% static 'css/alert.css' %}">
 
 {% endblock extrastyle %}
 
@@ -27,7 +28,16 @@
 
     <div class="space"></div>
 
+    <style>
+        .message-error, .message-success {
+            width: 95%;
+        }
+    </style>
+    
     <section>
+        
+        {% include 'partials/_alert.html' %}
+
         <div class="post">
 
             <a href="/{{ target.username }}">
