@@ -13,5 +13,10 @@ urlpatterns = [
     path('welcome', views.welcome, name='welcome'),
     path('<username>/followers', views.followers, name='followers'),
     path('<username>/following', views.following, name='following'),
+
+    #ajax
+    path('ajax/get_has_followed', views.get_has_followed),
+    path('ajax/post_follow', views.post_follow),
+    path('ajax/post_unfollow', views.post_unfollow)
 ]
 

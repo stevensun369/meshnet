@@ -75,9 +75,8 @@
 
                 
                 <div class="post-actions">
-                    <div class="post-actions-action">
+                    <div class="post-actions-action like-action">
                         <div class="post-actions-action-container">
-                            <span class="post-actions-action-number" id="number-{{ post.upid }}">{{ post.likes_count }}</span>
                             <button onclick="changeLike('{{ post.upid }}', '{{ user.email }}')" class="post-actions-action-img-button" value="" id="button-{{ post.upid }}">
                                 <img src="
                                 {% if liked == 'true' %}
@@ -86,12 +85,13 @@
                                     {% static 'img/heart-outline-blue.png' %}
                                 {% endif %}" alt="" class="post-actions-action-img" id="img-{{ post.upid }}">    
                             </button>
+                            <span class="post-actions-action-number" id="number-{{ post.upid }}">{{ post.likes_count }}</span>
                         </div>
                     </div>
                     <div class="post-actions-action">
                         <div class="post-actions-action-container">
-                            <span class="post-actions-action-number">{{ post.comments_count }}</span>
                             <img src="{% static 'img/comment.png' %}" alt="" style="margin-top: 0.35vh" class="post-actions-action-comment">
+                            <span class="post-actions-action-number">{{ post.comments_count }}</span>
                         </div>
                     </div>
                 </div>

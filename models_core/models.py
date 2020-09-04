@@ -55,6 +55,8 @@ class Comment(models.Model):
     relation_upid = models.TextField()
     date_commented = models.DateTimeField(auto_now_add=True)
 
+    ucid = models.TextField()
+
     relation_user = models.ForeignKey(User, on_delete=models.CASCADE)
     relation_user_profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     relation_post = models.ForeignKey(Post, on_delete=models.CASCADE)

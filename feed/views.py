@@ -115,9 +115,19 @@ def post(request, username, pid):
 
     # get the post and the comment
     post = Post.objects.get(upid=target.email+'_'+pid)
-    comments = Comment.objects.filter(relation_upid=post.upid)
+    comments = Comment.objects.filter(relation_upid=post.upid).order_by('-date_commented')
 
     liked = user.email in post.likes_list
+
+    comment_liked = []
+    for comment in comments:
+        if user.email in comment.likes_list:
+            comment_liked.append('true')
+        elif user.email not in comment.likes_list:
+            comment_liked.append('false')
+
+    today = date.today()
+    cid_date = today.strftime('%Y') + today.strftime('%m') + today.strftime('%d')
 
     if request.method == 'POST' : # if the user taps on the post button
 
@@ -130,8 +140,18 @@ def post(request, username, pid):
         # we get the input
         add_comment_input = request.POST['add-comment-input']
 
+        id_counter = 0
+        id_condition = False
+
+        while not id_condition: # we get the id_counter for the post pid and upid
+            if Comment.objects.filter(ucid=post.upid+'_'+user.email+'_'+cid_date+str(id_counter)).exists():
+                id_counter += 1
+            else: 
+                id_condition = True
+                ucid = post.upid+'_'+user.email+'_'+cid_date+str(id_counter)
+        
         # we create and save the comment
-        comment = Comment(relation_email=user.email, relation_upid=post.upid, relation_user=user, relation_user_profile=user_profile, relation_post=post, content=add_comment_input)
+        comment = Comment(relation_email=user.email, relation_upid=post.upid, ucid=ucid, relation_user=user, relation_user_profile=user_profile, relation_post=post, content=add_comment_input)
         comment.save()
 
         # we increase the comments counter
@@ -150,7 +170,9 @@ def post(request, username, pid):
             'target_profile': target_profile,
             'post':post,
             'comments': comments,
-            'liked': liked
+            'liked': liked,
+            'comment_liked': comment_liked,
+            'zipped_comments': zip(comment_liked, comments)
         }
 
         return render(request, 'feed/post.html', context)
@@ -206,6 +228,60 @@ def post_unlike(request):
 
     data = {
         'has_completed': 'unliked'
+    }
+
+    return JsonResponse(data)
+
+def get_comment_has_liked(request):
+
+    ucid = request.GET.get('ucid', None)
+    user_email = request.GET.get('user_email', None)
+
+    comment = Comment.objects.get(ucid=ucid)
+
+    has_liked = user_email in comment.likes_list
+
+    data = {
+        'has_liked': has_liked
+    }
+
+    return JsonResponse(data)
+
+
+def post_comment_like(request):
+
+    ucid = request.GET.get('ucid', None)
+    user_email = request.GET.get('user_email', None)
+
+    comment = Comment.objects.get(ucid=ucid)
+
+    comment.likes_list += user_email + ','
+    comment.likes_count += 1
+    comment.save()
+
+    data = {
+        'has_completed': 'like'
+    }
+
+    return JsonResponse(data)
+
+def post_comment_unlike(request):
+
+    ucid = request.GET.get('ucid', None)
+    user_email = request.GET.get('user_email', None)
+
+    comment = Comment.objects.get(ucid=ucid)
+
+    comment_likes_list = comment.likes_list.split(',')
+
+    comment_likes_list.remove(user_email)
+    comment.likes_list = ','.join(comment_likes_list)
+    comment.likes_count -= 1
+
+    comment.save()
+
+    data = {
+        'has_completed': 'unlike'
     }
 
     return JsonResponse(data)

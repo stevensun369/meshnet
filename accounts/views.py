@@ -3,6 +3,8 @@ from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib import auth
 from django.core.files.storage import FileSystemStorage
+from django.http import JsonResponse
+
 
 from models_core.models import UserProfile, Post
 
@@ -102,65 +104,31 @@ def profile(request, username):
     else: # else we set it to false
         follow_condition = False
 
-    if request.method == 'POST': # if the user presses the follow/unfollow button, we get the contents of the input(either 'follow' or 'unfollow')
+    posts = Post.objects.filter(relation_email=target.email).order_by('-date_posted')
 
-        submit_button = request.POST['input']
+    liked_list = []
 
-        if submit_button == 'follow':
-
-            target_profile.followers_list += user.email + ',' # we add the user to the target's followers list
-            target_profile.followers_count += 1 # and increase the followers counter of the target by 1
-
-            user_profile.following_list += target.email + ',' # now, we add the target to the user's following list.
-            user_profile.following_count = user_profile.following_count + 1 # and increase the user's following counter by 1
-
-            # and we save both profiles
-            target_profile.save()
-            user_profile.save()
-
-        elif submit_button == 'unfollow':
-
-            target_followers_list.remove(user.email) # we remove the user from the python target's followers list
-            target_profile.followers_list = ','.join(target_followers_list) # we reassign the list to the TextField in the model
-            target_profile.followers_count -= 1 # decrease count by 1
-
-            user_following_list.remove(target.email) # we remove the target from the pytho nuser's following list
-            user_profile.following_list = ','.join(user_following_list) # we reassign the list to the TextField in the model
-            user_profile.following_count -= 1 # decrease count by 1
-
-            # save both profiles
-            target_profile.save()
-            user_profile.save()
-
-        return redirect('/' + username)
-
-    else: # but if the user doesn't press the follow/unfollow button, we simply create a posts variable, create context, and render a template
-
-        posts = Post.objects.filter(relation_email=target.email).order_by('-date_posted')
-
-        liked_list = []
-
-        for post in posts: # we iterate through posts
-            if user.email in post.likes_list: # and if the user liked the post, we append true to the list
-                liked_list.append('true')
-            elif user.email not in post.likes_list: # but if the user didn't like the post, we append false to the list
-                liked_list.append('false')
+    for post in posts: # we iterate through posts
+        if user.email in post.likes_list: # and if the user liked the post, we append true to the list
+            liked_list.append('true')
+        elif user.email not in post.likes_list: # but if the user didn't like the post, we append false to the list
+            liked_list.append('false')
 
 
-        context = {
-            'target': target,
-            'target_profile': target_profile,
-            'user': user,
-            'user_profile': user_profile,
-            'target_followers_list' : target_followers_list,
-            'user_following_list': user_following_list,
-            'follow_condition': follow_condition,
-            'posts': posts,
-            'liked_list': liked_list,
-            'zipped': zip(liked_list, posts)
-        }
+    context = {
+        'target': target,
+        'target_profile': target_profile,
+        'user': user,
+        'user_profile': user_profile,
+        'target_followers_list' : target_followers_list,
+        'user_following_list': user_following_list,
+        'follow_condition': follow_condition,
+        'posts': posts,
+        'liked_list': liked_list,
+        'zipped': zip(liked_list, posts)
+    }
 
-        return render(request, 'accounts/profile.html', context)
+    return render(request, 'accounts/profile.html', context)
 
 def profile_me(request):
 
@@ -352,3 +320,73 @@ def following(request, username):
 
     return render(request, 'accounts/following.html', context)
 
+def get_has_followed(request):
+
+    user_email = request.GET.get('user_email', None)
+    target_email = request.GET.get('target_email', None)
+
+    user = UserProfile.objects.get(relation_email=user_email)
+    target = UserProfile.objects.get(relation_email=target_email)
+
+    first_condition = False
+    second_condition = False
+
+    if user_email in target.followers_list:
+        first_condition = True
+        
+    if target_email in user.following_list:
+        second_condition = True
+
+    data = {
+        'has_followed': first_condition and second_condition
+    }
+
+    return JsonResponse(data)
+
+def post_follow(request):
+
+    user_email = request.GET.get('user_email', None)
+    target_email = request.GET.get('target_email', None)
+
+    user = UserProfile.objects.get(relation_email=user_email)
+    target = UserProfile.objects.get(relation_email=target_email)
+
+    target.followers_list += user_email + ','
+    target.followers_count += 1
+    target.save()
+
+    user.following_list += target_email + ','
+    user.following_count += 1
+    user.save()
+
+    data = {
+        'has_completed': 'follow'
+    }
+
+    return JsonResponse(data)
+
+def post_unfollow(request):
+
+    user_email = request.GET.get('user_email', None)
+    target_email = request.GET.get('target_email', None)
+
+    user = UserProfile.objects.get(relation_email=user_email)
+    target = UserProfile.objects.get(relation_email=target_email)
+
+    target_followers_list = target.followers_list.split(',')
+    target_followers_list.remove(user_email)
+    target.followers_list = ','.join(target_followers_list)
+    target.followers_count -= 1
+    target.save()
+
+    user_following_list = user.following_list.split(',')
+    user_following_list.remove(target_email)
+    user.following_list = ','.join(user_following_list)
+    user.following_count -= 1
+    user.save()
+
+    data = {
+        'has_completed': 'unfollow'
+    }
+
+    return JsonResponse(data)
