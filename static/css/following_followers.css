@@ -63,6 +63,7 @@ section {
 
 .user-profile-photo {
     height: var(--header-height);
+    width: var(--header-height);
     float: left;
     margin-left: 2vh;
     margin-top: 2vh;
@@ -101,6 +102,7 @@ section {
 
 .user-bio {
     float: left;
+    min-width: 70%;
     margin-top: 2vh;
     margin-left: 2vh;
     margin-right: 2vh;

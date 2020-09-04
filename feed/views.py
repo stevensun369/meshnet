@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from models_core.models import UserProfile, Post, Comment
 from django.contrib.auth.models import User
+from django.http import JsonResponse
 
 from django.contrib import messages
 
@@ -21,6 +22,14 @@ def home(request):
         # we create a post variable, that will hold all of the posts
         posts = Post.objects.filter(relation_email__in=following_list).order_by('-date_posted')
 
+        liked_list = []
+
+        for post in posts: # we iterate through posts
+            if user.email in post.likes_list: # and if the user liked the post, we append true to the list
+                liked_list.append('true')
+            elif user.email not in post.likes_list: # but if the user didn't like the post, we append false to the list
+                liked_list.append('false')
+
         # create a context, and render a template
         context = {
             'user': user,
@@ -29,7 +38,9 @@ def home(request):
             'following_list': following_list,
             'user_object' : User,
             'user_profile_object': UserProfile,
-            'posts': posts
+            'posts': posts,
+            'liked_list': liked_list,
+            'zipped': zip(liked_list, posts)
         }
     
         return render(request, 'feed/home.html', context)
@@ -106,6 +117,8 @@ def post(request, username, pid):
     post = Post.objects.get(upid=target.email+'_'+pid)
     comments = Comment.objects.filter(relation_upid=post.upid)
 
+    liked = user.email in post.likes_list
+
     if request.method == 'POST' : # if the user taps on the post button
 
         if request.POST['add-comment-input'] == '': # but if the field is empty, 
@@ -136,8 +149,70 @@ def post(request, username, pid):
             'target': target,
             'target_profile': target_profile,
             'post':post,
-            'comments': comments
+            'comments': comments,
+            'liked': liked
         }
 
         return render(request, 'feed/post.html', context)
 
+
+def get_has_liked(request):
+
+    upid = request.GET.get('upid', None)
+    user_email = request.GET.get('user_email', None)
+
+    post = Post.objects.get(upid=upid)
+
+    has_liked = user_email in post.likes_list
+
+    data = {
+        'has_liked': has_liked,
+    }
+
+    return JsonResponse(data)
+
+
+def post_like(request):
+
+    upid = request.GET.get('upid', None)
+    user_email = request.GET.get('user_email', None)
+
+    post = Post.objects.get(upid=upid)
+
+    post.likes_list += user_email + ','
+    post.likes_count += 1
+    post.save()
+
+    data = {
+        'has_completed': 'liked'
+    }
+
+    return JsonResponse(data)
+
+def post_unlike(request):
+
+    upid = request.GET.get('upid', None)
+    user_email = request.GET.get('user_email', None)
+
+    post = Post.objects.get(upid=upid)
+
+    post_likes_list = post.likes_list.split(',')
+
+    post_likes_list.remove(user_email)
+    post.likes_list = ','.join(post_likes_list)
+    post.likes_count -= 1
+
+    post.save()
+
+    data = {
+        'has_completed': 'unliked'
+    }
+
+    return JsonResponse(data)
+
+    
+
+
+
+
+    

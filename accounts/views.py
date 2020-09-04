@@ -138,6 +138,15 @@ def profile(request, username):
 
         posts = Post.objects.filter(relation_email=target.email).order_by('-date_posted')
 
+        liked_list = []
+
+        for post in posts: # we iterate through posts
+            if user.email in post.likes_list: # and if the user liked the post, we append true to the list
+                liked_list.append('true')
+            elif user.email not in post.likes_list: # but if the user didn't like the post, we append false to the list
+                liked_list.append('false')
+
+
         context = {
             'target': target,
             'target_profile': target_profile,
@@ -147,6 +156,8 @@ def profile(request, username):
             'user_following_list': user_following_list,
             'follow_condition': follow_condition,
             'posts': posts,
+            'liked_list': liked_list,
+            'zipped': zip(liked_list, posts)
         }
 
         return render(request, 'accounts/profile.html', context)
@@ -160,11 +171,21 @@ def profile_me(request):
     # get all of the users posts
     posts = Post.objects.filter(relation_email=user.email).order_by('-date_posted')
 
+    liked_list = []
+
+    for post in posts: # we iterate through posts
+        if user.email in post.likes_list: # and if the user liked the post, we append true to the list
+            liked_list.append('true')
+        elif user.email not in post.likes_list: # but if the user didn't like the post, we append false to the list
+            liked_list.append('false')
+
     # create context
     context = {
         'user': user,
         'user_profile': user_profile,
-        'posts': posts
+        'posts': posts,
+        'liked_list': liked_list,
+        'zipped' : zip(liked_list, posts)
     }
 
     # and render a template

@@ -43,7 +43,7 @@ class Post(models.Model):
 
     comments_count = models.IntegerField(default=0)
 
-    likes_list = models.TextField(blank=True)
+    likes_list = models.TextField(blank=True) 
     likes_count = models.IntegerField(default=0)
 
     def __str__(self):
