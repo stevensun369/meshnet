@@ -131,7 +131,7 @@ def post(request, username, pid):
 
     if request.method == 'POST' : # if the user taps on the post button
 
-        if request.POST['add-comment-input'] == '': # but if the field is empty, 
+        if request.POST['add-comment-input'] == '': # and the field is empty, 
 
             # we return an error and redirect to the same path
             messages.error(request, 'you have to enter something in the comment field') 
@@ -287,6 +287,52 @@ def post_comment_unlike(request):
     return JsonResponse(data)
 
     
+def post_add_comment(request):
+    
+    user_email = request.GET.get('user_email', None)
+    post_upid = request.GET.get('post_upid', None)
+    comment_content = request.GET.get('comment_content', None)
+
+    user = User.objects.get(email=user_email)
+    user_profile = UserProfile.objects.get(relation_email=user_email)
+
+    post = Post.objects.get(upid=post_upid)
+
+    # we get the ucid
+    today = date.today()
+    cid_date = today.strftime('%Y') + today.strftime('%m') + today.strftime('%d')
+
+    id_counter = 0
+    id_condition = False
+
+    while not id_condition: # we get the id_counter for the post pid and upid
+        if Comment.objects.filter(ucid=post.upid+'_'+user.email+'_'+cid_date+str(id_counter)).exists():
+            id_counter += 1
+        else: 
+            id_condition = True
+            ucid = post.upid+'_'+user.email+'_'+cid_date+str(id_counter)
+    
+    # we create and save the comment
+    comment = Comment(relation_email=user.email, relation_upid=post.upid, ucid=ucid, relation_user=user, relation_user_profile=user_profile, relation_post=post, content=comment_content)
+    comment.save()
+
+    # we increase the comments counter
+    post.comments_count += 1
+    post.save()
+
+    comment = Comment.objects.get(ucid=ucid)
+
+    data = {
+        'has_completed': 'comment has been sent',
+        'user_username': user.username,
+        'user_email': user.email,
+        'user_photo': user_profile.profile_photo_url,
+        'comment_content': comment.content,
+        'comment_ucid': comment.ucid,
+        'comment_likes_count': comment.likes_count,
+    }
+
+    return JsonResponse(data)
 
 
 

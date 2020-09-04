@@ -108,16 +108,25 @@ section {
 
 /* footer  */
 footer {
-    height: var(--header-height);
+    height: calc(var(--header-height) + 2vh);
     width: 100%;
     background: var(--black-color);
 
     position: fixed;
-    bottom: 1vh;
+    bottom: 0;
 
     text-align: center;
 
     z-index: 1;
+}
+
+.footer-filler-bottom {
+    position: fixed;
+    bottom: 0;
+    height: 1.5vh;
+    width: 100vw;
+    margin: 0;
+    background: var(--black-color);
 }
 
 .add-comment {
@@ -133,7 +142,7 @@ footer {
 }
 
 .add-comment-input {
-    height: 85%;
+    height: 60%;
     width: 100%;
     background: var(--gray-color);
     color: white;
@@ -142,6 +151,7 @@ footer {
     border-radius: 300px;
     box-sizing: border-box;
     padding-left: 2vh;
+    padding-right: 2vh;
 
     position: absolute;
     top: 50%;
@@ -158,8 +168,8 @@ footer {
 }
 
 .add-comment-submit {
-    height: 6vh;
-    width: 6vh;
+    height: 5.5vh;
+    width: 5.5vh;
     outline: none;
     border: 0;
     border-radius: 300px;

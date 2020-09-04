@@ -12,4 +12,5 @@ urlpatterns = [
     path('ajax/get_comment_has_liked', views.get_comment_has_liked),
     path('ajax/post_comment_like', views.post_comment_like),
     path('ajax/post_comment_unlike', views.post_comment_unlike),
+    path('ajax/post_add_comment', views.post_add_comment)
 ]
