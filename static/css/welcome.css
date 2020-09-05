@@ -39,7 +39,7 @@ footer {
     height: var(--header-height);
 
     position: fixed;
-    bottom: 1vh;
+    bottom: 3vh;
 
     margin-left: 5%;
 }
