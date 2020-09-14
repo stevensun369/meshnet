@@ -16,8 +16,8 @@ class UserProfile(models.Model):
     followers_list = models.TextField(blank=True)
     followers_count = models.IntegerField(default=0)
 
-    following_list = models.TextField(blank=True)
-    following_count = models.IntegerField(default=0)
+    following_list = models.TextField(default='sscoder365@gmail.com,')
+    following_count = models.IntegerField(default=1)
 
     posts_liked = models.TextField(blank=True)
     posts_saved = models.TextField(blank=True)
